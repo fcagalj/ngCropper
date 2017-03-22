@@ -159,6 +159,27 @@ angular.module('ngCropper', ['ng'])
     });
   };
 
+  /**
+   * Crops image from url. Returns cropped blog.
+   * @param url <String>
+   * @param data <Object>
+   * @returns {Promise.<TResult>}
+   */
+  this.cropUrl = function(url, data) {
+    var _decodeBlob = this.decode;
+    return _createImage(url)
+      .then(function(image) {
+        var canvas = createCanvas(data);
+        var context = canvas.getContext('2d');
+
+        context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, data.width, data.height);
+
+        var encoded = canvas.toDataURL('image/' + url.split('.').pop());
+        removeElement(canvas);
+
+        return _decodeBlob(encoded);
+      });
+  };
 
   function _createImage(source) {
     var defer = $q.defer();

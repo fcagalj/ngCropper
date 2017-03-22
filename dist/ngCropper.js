@@ -169,16 +169,16 @@ angular.module('ngCropper', ['ng'])
     var _decodeBlob = this.decode;
     return _createImage(url)
       .then(function(image) {
-      var canvas = createCanvas(data);
-      var context = canvas.getContext('2d');
+        var canvas = createCanvas(data);
+        var context = canvas.getContext('2d');
 
-      context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, data.width, data.height);
+        context.drawImage(image, data.x, data.y, data.width, data.height, 0, 0, data.width, data.height);
 
-      var encoded = canvas.toDataURL('image/' + url.split('.').pop());
-      removeElement(canvas);
+        var encoded = canvas.toDataURL('image/' + url.split('.').pop());
+        removeElement(canvas);
 
-      return _decodeBlob(encoded);
-    });
+        return _decodeBlob(encoded);
+      });
   };
 
   function _createImage(source) {
